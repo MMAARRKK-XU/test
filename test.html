@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clickable Link Demo</title>
+    <style>
+        .link {
+            display: block;
+            padding: 10px 20px;
+            margin: 20px auto;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        .link.clickable {
+            color: blue;
+            cursor: pointer;
+        }
+
+        .link.not-clickable {
+            color: gray;
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+<a href="https://www.google.com" class="link" id="link">Google</a>
+
+<script>
+    let isClickable = true;
+
+    function toggleLinkStatus() {
+        const link = document.getElementById('link');
+
+        if (isClickable) {
+            link.classList.add('not-clickable');
+            link.classList.remove('clickable');
+            link.style.color = 'gray';
+            link.style.cursor = 'default';
+        } else {
+            link.classList.remove('not-clickable');
+            link.classList.add('clickable');
+            link.style.color = 'blue';
+            link.style.cursor = 'pointer';
+        }
+
+        isClickable = !isClickable;
+
+        // Prevent default behavior when link is not clickable
+        if (!isClickable) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+            });
+        } else {
+            // Remove event listener when link is clickable again
+            link.removeEventListener('click', function(event) {
+                event.preventDefault();
+            });
+        }
+    }
+
+    setInterval(toggleLinkStatus, 3000); // Change status every 30 seconds
+</script>
+</body>
+</html>
